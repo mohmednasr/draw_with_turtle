@@ -1,4 +1,5 @@
 import turtle
+import math
 
 def draw_small_tri(some_turtle,l):
     some_turtle.fillcolor('green')
@@ -8,30 +9,24 @@ def draw_small_tri(some_turtle,l):
         some_turtle.left(120)
     some_turtle.end_fill()
 
-def draw_tri(some_tur,l):
+def draw_tri(some_tur, l , x, y):
     draw_small_tri(some_tur,l)
-    some_tur.forward(l)
+    some_tur.goto(x + l*math.cos(math.pi/3), y + l*math.sin(math.pi/3))
     draw_small_tri(some_tur,l)
-    some_tur.forward(l)
-    some_tur.left(120)
-    some_tur.forward(l)
+    some_tur.goto(x+ l, y+ 0)
     draw_small_tri(some_tur,l)
+    
 
-def draw_big_tri(some,l):
-    draw_tri(some,l)
-    #
-    some.forward(l)
-    some.right(120)
-    #
-    draw_tri(some,l)
-    #
-    some.right(180)
-    some.forward(l*2+l)
-    some.right(120)
-    some.forward(l*2)
-    some.right(180)
-    #
-    draw_tri(some,l)
+def draw_big_tri(some, l, x, y):
+    some.goto(x,y)
+    draw_tri(some,l, x, y)
+    some.goto(x,y)
+    some.goto(x + 2*l*math.cos(math.pi/3), y + 2*l*math.sin(math.pi/3))
+    draw_tri(some,l, x + 2*l*math.cos(math.pi/3), y + 2*l*math.sin(math.pi/3))
+    some.goto(x + 2*l*math.cos(math.pi/3), y + 2*l*math.sin(math.pi/3))
+    some.goto(x + 2*l, y + 0)
+    draw_tri(some,l, x + 2*l, y + 0)
+
 
 
 def draw_graph(l=20):
@@ -41,23 +36,14 @@ def draw_graph(l=20):
     lite = turtle.Turtle()
     lite.shape('turtle')
     lite.color('yellow')
-    lite.speed(10)
-    for i in range(1):
-        draw_big_tri(lite,l)
-
-        lite.forward(l*3)
-        lite.right(120)
-
-        draw_big_tri(lite,l)
-
-        lite.right(180)
-        lite.forward(l*5)
-        lite.right(120)
-        lite.forward(l*4)
-        lite.right(180)
-
-        draw_big_tri(lite,l)
-
+    lite.speed(0)
+    draw_big_tri(lite,l,0,0)
+    lite.goto(0,0)
+    draw_big_tri(lite,l,4*l*math.cos(math.pi/3), 4*l*math.sin(math.pi/3))
+    lite.goto(4*l*math.cos(math.pi/3), 4*l*math.sin(math.pi/3))
+    draw_big_tri(lite,l,4*l,0)
     window.exitonclick()
+
+    
 
 draw_graph(30)
